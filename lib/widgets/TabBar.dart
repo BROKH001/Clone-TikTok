@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ui_tik_tok/models/PostModel.dart';
 
 class BuildTabBar extends StatefulWidget {
-
   const BuildTabBar({super.key});
 
   @override
@@ -10,8 +9,14 @@ class BuildTabBar extends StatefulWidget {
 }
 
 class _BuildTabBarState extends State<BuildTabBar> {
-
-  late PostModel postModel = PostModel(likes: 100, comments: 1.5, shares: 1.5, save: 40, content: "", time: "", image: Image(image: NetworkImage("")));
+  late PostModel postModel = PostModel(
+      likes: 100,
+      comments: 1.5,
+      shares: 1.5,
+      save: 40,
+      content: "",
+      time: "",
+      image: Image(image: NetworkImage("")));
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +104,6 @@ class _BuildTabBarState extends State<BuildTabBar> {
                     width: 2, color: Colors.black, style: BorderStyle.solid),
               ),
               shape: BoxShape.circle,
-              // image: DecorationImage(image: AssetImage("")),
             ),
           ),
         ),
@@ -125,15 +129,21 @@ class _BuildTabBarState extends State<BuildTabBar> {
 
   Widget _buildPlayList() {
     return Container(
-      height: 55,
-      width: 55,
+      height: 60,
+      width: 60,
       decoration: BoxDecoration(
         color: Colors.lightGreenAccent,
         border: Border(
-            bottom: BorderSide(
-                width: 1, color: Colors.white, style: BorderStyle.solid)),
+          bottom: BorderSide(
+              width: 2, color: Colors.white, style: BorderStyle.solid),
+          top: BorderSide(
+              width: 2, color: Colors.white, style: BorderStyle.solid),
+          left: BorderSide(
+              width: 2, color: Colors.white, style: BorderStyle.solid),
+          right: BorderSide(
+              width: 2, color: Colors.white, style: BorderStyle.solid),
+        ),
         shape: BoxShape.circle,
-        // image: DecorationImage(image: AssetImage("")),
       ),
     );
   }

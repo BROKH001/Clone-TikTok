@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ui_tik_tok/models/PostModel.dart';
 import 'package:ui_tik_tok/pages/friends_page.dart';
-
-import '../models/PostModel.dart';
+import 'package:ui_tik_tok/pages/search_page.dart';
+import 'package:ui_tik_tok/widgets/custom_TabBar.dart';
 import '../widgets/TabBar.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,12 +14,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late PostModel postModel;
-
   // PostModel get postModel => _postModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
+      // appBar: AppBar(),
       body: _buildPageScrollView(),
       bottomNavigationBar: _buildNavigationBar(),
     );
@@ -32,34 +32,42 @@ class _HomePageState extends State<HomePage> {
       color: Colors.black,
       shadowColor: Colors.white38,
       height: 95,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildIconButton(Icons.home, "Home", () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
-          }),
-          _buildIconButton(
-              Icons.people_alt_outlined,
-              "Friend",
-              () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => FriendsPage()))),
-          _buildIconButton(
-              Icons.add_box,
-              "Content",
-              () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => FriendsPage()))),
-          _buildIconButton(
-              Icons.inbox,
-              "Inbox",
-              () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => FriendsPage()))),
-          _buildIconButton(
-              Icons.person,
-              "Profile",
-              () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => FriendsPage()))),
-        ],
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: Colors.white24, width: 2)),
+        ),
+        child: Row(
+          spacing: 15,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildIconButton(Icons.home, "Home", () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            }),
+            _buildIconButton(
+                Icons.people_alt_outlined,
+                "Friend",
+                () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FriendsPage()))),
+            _buildIconButton(
+                Icons.add_box,
+                "Content",
+                () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FriendsPage()))),
+            _buildIconButton(
+                Icons.inbox,
+                "Inbox",
+                () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FriendsPage()))),
+            _buildIconButton(
+                Icons.person,
+                "Profile",
+                () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FriendsPage()))),
+          ],
+        ),
       ),
     );
   }
@@ -77,11 +85,11 @@ class _HomePageState extends State<HomePage> {
             scrollDirection: Axis.vertical,
             itemBuilder: (context, index) => Center(
               child: Container(
-                height: 800,
+                height: double.infinity,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  // image: DecorationImage(image: listPost[index].image!),
-                ),
+                    // image: DecorationImage(image: listPost[index].image!),
+                    ),
                 child: Center(
                     child: Text(
                   "${listPost[index].time}",
@@ -91,7 +99,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Positioned(
-            top: 40,
+            top: 45,
             left: 50,
             right: 50,
             child: Flexible(
@@ -100,35 +108,41 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
-                spacing: 20,
+                spacing: 5,
                 children: [
-                  _buildTabBar("Following", () {
-                    print("Following");
-                  }),
-                  _buildTabBar("For You", () {
-                    print("For You");
-                  }),
+                  CustomTabBar(
+                    title: "Following",
+                    isSelected: false,
+                    onTap: () {},
+                  ),
+                  CustomTabBar(
+                    title: "For You",
+                    isSelected: true,
+                    onTap: () {},
+                  ),
                 ],
               ),
             ),
           ),
           Positioned(
             top: 35,
-            right: 15,
+            right: 10,
             child: IconButton(
               onPressed: () {
                 print("Search ...");
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SearchPage()));
               },
               icon: Icon(
                 Icons.search,
-                size: 35,
+                size: 40,
                 color: Colors.white,
               ),
             ),
           ),
           Positioned(
-            bottom: 10,
-            right: 10,
+            bottom: 0,
+            right: 5,
             child: BuildTabBar(),
           ),
         ],
@@ -150,32 +164,12 @@ class _HomePageState extends State<HomePage> {
         Text(
           title,
           style: TextStyle(
-              fontWeight: FontWeight.w500, fontSize: 15, color: Colors.white),
+            fontWeight: FontWeight.w500,
+            fontSize: 15,
+            color: Colors.white,
+          ),
         ),
       ],
-    );
-  }
-
-  Widget _buildTabBar(String title, void Function()? onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Row(
-        children: [
-          Stack(
-            clipBehavior: Clip.hardEdge,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 }
