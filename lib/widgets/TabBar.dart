@@ -1,53 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:ui_tik_tok/models/PostModel.dart';
 
 class BuildTabBar extends StatefulWidget {
-  const BuildTabBar({super.key});
+  final double? like;
+  final String? pic;
+  final double? comment;
+  final double? save;
+  final double? share;
+  final String? image;
+  const BuildTabBar(
+      {super.key,
+      required this.like,
+      this.comment,
+      this.save,
+      this.share,
+      this.image,
+      this.pic});
 
   @override
   State<BuildTabBar> createState() => _BuildTabBarState();
 }
 
 class _BuildTabBarState extends State<BuildTabBar> {
-  late PostModel postModel = PostModel(
-      likes: 100,
-      comments: 1.5,
-      shares: 1.5,
-      save: 40,
-      content: "",
-      time: "",
-      image: Image(image: NetworkImage("")));
-
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 10,
+      spacing: 5,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _buildProfile(
           () {
-            print("Add Friend ...");
+            debugPrint("Add Friend ...");
           },
         ),
-        _buildIcon("${postModel.likes}K", Icons.favorite, () {
-          print("Like");
+        _buildIcon("${widget.like}K", Icons.favorite, () {
+          debugPrint("Like");
         }),
-        _buildIcon("${postModel.comments}K", Icons.comment, () {
-          print("comment");
+        _buildIcon("${widget.comment}K", Icons.comment, () {
+          debugPrint("comment");
         }),
-        _buildIcon("${postModel.save}K", Icons.save, () {
-          print("Save");
+        _buildIcon("${widget.save}K", Icons.bookmark, () {
+          debugPrint("Save");
         }),
-        _buildIcon("${postModel.shares}K", Icons.share, () {
-          print("Share");
+        _buildIcon("${widget.share}K", Icons.share, () {
+          debugPrint("Share");
         }),
-        _buildPlayList(),
+        _buildPlayList("${widget.image}K"),
       ],
     );
   }
 
   Widget _buildIcon(String label, IconData icon, void Function()? onTap) {
     return Column(
+      spacing: 0,
       children: [
         IconButton(
             onPressed: onTap,
@@ -92,18 +96,22 @@ class _BuildTabBarState extends State<BuildTabBar> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.transparent,
               border: Border(
                 bottom: BorderSide(
-                    width: 2, color: Colors.black, style: BorderStyle.solid),
+                    width: 2, color: Colors.white, style: BorderStyle.solid),
                 top: BorderSide(
-                    width: 2, color: Colors.black, style: BorderStyle.solid),
+                    width: 2, color: Colors.white, style: BorderStyle.solid),
                 left: BorderSide(
-                    width: 2, color: Colors.black, style: BorderStyle.solid),
+                    width: 2, color: Colors.white, style: BorderStyle.solid),
                 right: BorderSide(
-                    width: 2, color: Colors.black, style: BorderStyle.solid),
+                    width: 2, color: Colors.white, style: BorderStyle.solid),
               ),
               shape: BoxShape.circle,
+              image: DecorationImage(
+                  alignment: Alignment.center,
+                  image: NetworkImage("${widget.pic}"),
+                  fit: BoxFit.cover),
             ),
           ),
         ),
@@ -127,12 +135,12 @@ class _BuildTabBarState extends State<BuildTabBar> {
     );
   }
 
-  Widget _buildPlayList() {
+  Widget _buildPlayList(final String image) {
     return Container(
       height: 60,
       width: 60,
       decoration: BoxDecoration(
-        color: Colors.lightGreenAccent,
+        color: Colors.transparent,
         border: Border(
           bottom: BorderSide(
               width: 2, color: Colors.white, style: BorderStyle.solid),
@@ -143,8 +151,10 @@ class _BuildTabBarState extends State<BuildTabBar> {
           right: BorderSide(
               width: 2, color: Colors.white, style: BorderStyle.solid),
         ),
+        image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
         shape: BoxShape.circle,
       ),
+      // child: Image(image: NetworkImage("${postModel.image}"), fit: BoxFit.cover,),
     );
   }
 }

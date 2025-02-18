@@ -6,15 +6,14 @@ import 'package:ui_tik_tok/widgets/custom_TabBar.dart';
 import '../widgets/TabBar.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  PostModel? post;
+  HomePage({super.key, this.post});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  late PostModel postModel;
-  // PostModel get postModel => _postModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,10 +40,10 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _buildIconButton(Icons.home, "Home", () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => HomePage()),
+              // );
             }),
             _buildIconButton(
                 Icons.people_alt_outlined,
@@ -83,18 +82,76 @@ class _HomePageState extends State<HomePage> {
             physics: const BouncingScrollPhysics(),
             pageSnapping: true,
             scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) => Center(
-              child: Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    // image: DecorationImage(image: listPost[index].image!),
+            itemBuilder: (context, index) => Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  // image: DecorationImage(image: listPost[index].image!),
+                  ),
+              child: Stack(
+                children: [
+                  Center(
+                    child: Image.network("${listPost[index].image}"),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    right: 5,
+                    child: BuildTabBar(
+                      pic: listPost[index].picProfile,
+                      like: listPost[index].likes,
+                      comment: listPost[index].comments,
+                      save: listPost[index].save,
+                      share: listPost[index].shares,
+                      image: listPost[index].image,
                     ),
-                child: Center(
-                    child: Text(
-                  "${listPost[index].time}",
-                  style: TextStyle(fontSize: 40, color: Colors.white),
-                )),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: Container(
+                      padding:
+                          const EdgeInsets.only(left: 10, right: 5, bottom: 0),
+                      height: 100,
+                      width: 320,
+                      color: Colors.transparent,
+                      child: Column(
+                        spacing: 5,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            spacing: 30,
+                            children: [
+                              Text(
+                                "${listPost[index].username}",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1.0,
+                                    wordSpacing: 1.5),
+                              ),
+                              Text(
+                                "${listPost[index].time}",
+                                style: TextStyle(
+                                    color: Colors.white54,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          ),
+                          Text(
+                            "${listPost[index].content}",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -113,12 +170,16 @@ class _HomePageState extends State<HomePage> {
                   CustomTabBar(
                     title: "Following",
                     isSelected: false,
-                    onTap: () {},
+                    onTap: () {
+                      debugPrint("Following");
+                    },
                   ),
                   CustomTabBar(
                     title: "For You",
                     isSelected: true,
-                    onTap: () {},
+                    onTap: () {
+                      debugPrint("For You");
+                    },
                   ),
                 ],
               ),
@@ -129,7 +190,7 @@ class _HomePageState extends State<HomePage> {
             right: 10,
             child: IconButton(
               onPressed: () {
-                print("Search ...");
+                debugPrint("Search ...");
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => SearchPage()));
               },
@@ -139,11 +200,6 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
               ),
             ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 5,
-            child: BuildTabBar(),
           ),
         ],
       ),

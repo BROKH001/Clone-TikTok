@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_tik_tok/models/PostModel.dart';
 import 'package:ui_tik_tok/pages/homepage.dart';
 
 void main() {
