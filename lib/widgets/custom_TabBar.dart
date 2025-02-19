@@ -12,7 +12,7 @@ class CustomTabBar extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Column(
-        spacing: 2,
+        spacing: 5,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
@@ -24,8 +24,8 @@ class CustomTabBar extends StatelessWidget {
                   Text(
                     "  $title  ",
                     style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w400,
                         color: isSelected ? Colors.white : Colors.white70),
                   ),
                   Positioned(
@@ -46,7 +46,7 @@ class CustomTabBar extends StatelessWidget {
           ),
           Container(
             height: 4,
-            width: 40,
+            width: 30,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(5)),
               shape: BoxShape.rectangle,

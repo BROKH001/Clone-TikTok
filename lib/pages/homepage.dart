@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ui_tik_tok/models/PostModel.dart';
-import 'package:ui_tik_tok/pages/friends_page.dart';
 import 'package:ui_tik_tok/pages/search_page.dart';
 import 'package:ui_tik_tok/widgets/custom_TabBar.dart';
+import 'package:ui_tik_tok/widgets/custom_button.dart';
 import '../widgets/TabBar.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,8 +17,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
-      // appBar: AppBar(),
       body: _buildPageScrollView(),
       bottomNavigationBar: _buildNavigationBar(),
     );
@@ -29,42 +27,66 @@ class _HomePageState extends State<HomePage> {
       elevation: 0,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       color: Colors.black,
-      shadowColor: Colors.white38,
+      shadowColor: Colors.white24,
       height: 95,
       child: Container(
         decoration: BoxDecoration(
           border: Border(top: BorderSide(color: Colors.white24, width: 2)),
         ),
         child: Row(
-          spacing: 15,
+          spacing: 0,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildIconButton(Icons.home, "Home", () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => HomePage()),
-              // );
-            }),
-            _buildIconButton(
-                Icons.people_alt_outlined,
-                "Friend",
-                () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FriendsPage()))),
-            _buildIconButton(
-                Icons.add_box,
-                "Content",
-                () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FriendsPage()))),
-            _buildIconButton(
-                Icons.inbox,
-                "Inbox",
-                () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FriendsPage()))),
-            _buildIconButton(
-                Icons.person,
-                "Profile",
-                () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FriendsPage()))),
+            CustomButton(
+              title: "Home",
+              icon: Icons.home,
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => HomePage()),
+                // );
+              },
+            ),
+            CustomButton(
+              title: "Friends",
+              icon: Icons.people_alt_outlined,
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => HomePage()),
+                // );
+              },
+            ),
+            CustomButton(
+              title: "Content",
+              icon: Icons.add_box_rounded,
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => HomePage()),
+                // );
+              },
+            ),
+            CustomButton(
+              title: "Inbox",
+              icon: Icons.inbox,
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => HomePage()),
+                // );
+              },
+            ),
+            CustomButton(
+              title: "Profile",
+              icon: Icons.person,
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => HomePage()),
+                // );
+              },
+            ),
           ],
         ),
       ),
@@ -76,6 +98,7 @@ class _HomePageState extends State<HomePage> {
       height: double.maxFinite,
       color: Colors.black,
       child: Stack(
+        alignment: Alignment.center,
         children: [
           PageView.builder(
             itemCount: listPost.length,
@@ -156,76 +179,46 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Positioned(
-            top: 45,
-            left: 50,
-            right: 50,
-            child: Flexible(
-              flex: 1,
-              fit: FlexFit.loose,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                spacing: 5,
-                children: [
-                  CustomTabBar(
-                    title: "Following",
-                    isSelected: false,
-                    onTap: () {
-                      debugPrint("Following");
-                    },
-                  ),
-                  CustomTabBar(
-                    title: "For You",
-                    isSelected: true,
-                    onTap: () {
-                      debugPrint("For You");
-                    },
-                  ),
-                ],
-              ),
+            top: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              spacing: 5,
+              children: [
+                CustomTabBar(
+                  title: "Following",
+                  isSelected: false,
+                  onTap: () {
+                    debugPrint("Following");
+                  },
+                ),
+                CustomTabBar(
+                  title: "For You",
+                  isSelected: true,
+                  onTap: () {
+                    debugPrint("For You");
+                  },
+                ),
+              ],
             ),
           ),
           Positioned(
-            top: 35,
-            right: 10,
+            top: 40,
+            right: 5,
             child: IconButton(
               onPressed: () {
-                debugPrint("Search ...");
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => SearchPage()));
               },
               icon: Icon(
-                Icons.search,
-                size: 40,
+                Icons.search_outlined,
                 color: Colors.white,
+                size: 40,
               ),
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildIconButton(IconData icon, String title, void Function()? onTap) {
-    return Column(
-      children: [
-        IconButton(
-          icon: Icon(
-            icon,
-            size: 30,
-            color: Colors.white,
-          ),
-          onPressed: onTap,
-        ),
-        Text(
-          title,
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 15,
-            color: Colors.white,
-          ),
-        ),
-      ],
     );
   }
 }

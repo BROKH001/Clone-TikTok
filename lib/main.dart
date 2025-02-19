@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:ui_tik_tok/models/PostModel.dart';
+import 'package:flutter/services.dart';
 import 'package:ui_tik_tok/pages/homepage.dart';
 
 void main() {
   runApp(const MyApp());
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent, // Make it transparent
+    statusBarIconBrightness: Brightness.light,
+  ));
 }
 
 class MyApp extends StatelessWidget {

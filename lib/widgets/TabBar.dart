@@ -24,7 +24,7 @@ class _BuildTabBarState extends State<BuildTabBar> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 5,
+      spacing: 0,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _buildProfile(
@@ -44,13 +44,15 @@ class _BuildTabBarState extends State<BuildTabBar> {
         _buildIcon("${widget.share}K", Icons.share, () {
           debugPrint("Share");
         }),
-        _buildPlayList("${widget.image}K"),
+        const SizedBox(height: 10),
+        _buildPlayList(),
       ],
     );
   }
 
   Widget _buildIcon(String label, IconData icon, void Function()? onTap) {
     return Column(
+      // mainAxisAlignment: MainAxisAlignment.center,
       spacing: 0,
       children: [
         IconButton(
@@ -135,7 +137,7 @@ class _BuildTabBarState extends State<BuildTabBar> {
     );
   }
 
-  Widget _buildPlayList(final String image) {
+  Widget _buildPlayList() {
     return Container(
       height: 60,
       width: 60,
@@ -151,10 +153,10 @@ class _BuildTabBarState extends State<BuildTabBar> {
           right: BorderSide(
               width: 2, color: Colors.white, style: BorderStyle.solid),
         ),
-        image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
+        image: DecorationImage(
+            image: NetworkImage("${widget.pic}"), fit: BoxFit.cover),
         shape: BoxShape.circle,
       ),
-      // child: Image(image: NetworkImage("${postModel.image}"), fit: BoxFit.cover,),
     );
   }
 }

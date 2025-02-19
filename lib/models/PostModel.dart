@@ -42,7 +42,7 @@ List<PostModel> listPost = [
           "https://i.pinimg.com/736x/3f/2b/ed/3f2bed76717ee9e03aa4f69bd6b1d253.jpg"),
   PostModel(
       id: 2,
-      username: "Gold D. Roger",
+      username: "Gol D. Roger",
       picProfile: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6_8ED6krDEcJl8kI-NMOXXm62_pUwQbDe_xdsQrRmGGIJI6FsMhLm4eVWZzr4kU_x10E&usqp=CAU",
       likes: 100,
       comments: 500,
